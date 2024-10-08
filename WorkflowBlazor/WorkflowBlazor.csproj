@@ -13,4 +13,9 @@
     <PackageReference Include="WorkflowCore.DSL" Version="3.11.0" />
     <PackageReference Include="WorkflowCore.Persistence.Sqlite" Version="3.11.0" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="WorkflowJobs\WorlflowJson\" />
+  </ItemGroup>
 </Project>

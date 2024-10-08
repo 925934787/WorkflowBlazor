@@ -1,8 +1,10 @@
+using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using WorkflowBlazor.Components;
 using WorkflowBlazor.WorkflowJobs.FirstJob;
 using WorkflowBlazor.WorkflowJobs.FirstJob.Steps;
 using WorkflowCore.Interface;
+using WorkflowCore.Services.DefinitionStorage;
 
 namespace WorkflowBlazor
 {
@@ -23,6 +25,8 @@ namespace WorkflowBlazor
             {
                 options.UseSqlite("Data Source=workflow.db", true);
             });
+
+            builder.Services.AddWorkflowDSL();
 
             //ServiceLocator.Instance = builder.Services!.BuildServiceProvider();
 
@@ -58,6 +62,12 @@ namespace WorkflowBlazor
             //c#´úÂë×¢²á
             host?.RegisterWorkflow<HelloWorldWorkflow>();
             //json×¢²á
+            var json= System.IO.File.ReadAllText("WorkflowJobs/WorlflowJson/HelloWorldJson.json");
+            var loader = app.Services.GetService<IDefinitionLoader>();
+            loader.LoadDefinition(json, Deserializers.Json);
+
+
+
             #endregion
 
             host?.Start();

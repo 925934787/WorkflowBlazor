@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using WorkflowBlazor.WorkflowJobs.FirstJob;
 using WorkflowCore.Interface;
+using WorkflowCore.Services;
 
 namespace WorkflowBlazor.WorkflowJobs
 {
@@ -39,6 +40,8 @@ namespace WorkflowBlazor.WorkflowJobs
 
             var service= ServiceLocator.Instance.GetService<IWorkflowController>();
             service?.StartWorkflow(jobInfo.Id, jobInfo.Version, null);
+
+            service?.StartWorkflow("HelloWorldJson", 1, null);
 
 
         }

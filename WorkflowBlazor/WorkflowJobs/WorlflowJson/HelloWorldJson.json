@@ -1,0 +1,16 @@
+{
+  "Id": "HelloWorldJson",
+  "Version": 1,
+  "Steps": [
+    {
+      "Id": "Hello",
+      "StepType": "WorkflowBlazor.WorkflowJobs.FirstJob.Steps.HelloWorld, WorkflowBlazor",
+      "NextStepId": "Bye"
+    },
+    {
+      "Id": "Bye",
+      "StepType": "WorkflowBlazor.WorkflowJobs.FirstJob.Steps.GoodbyeWorld, WorkflowBlazor"
+
+    }
+  ]
+}
