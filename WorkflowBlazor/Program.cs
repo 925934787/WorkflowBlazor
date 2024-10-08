@@ -62,9 +62,9 @@ namespace WorkflowBlazor
             //c#´úÂë×¢²á
             host?.RegisterWorkflow<HelloWorldWorkflow>();
             //json×¢²á
-            var json= System.IO.File.ReadAllText("WorkflowJobs/WorlflowJson/HelloWorldJson.json");
+            var json= File.ReadAllText("WorkflowJobs/WorlflowJson/HelloWorldJson.json");
             var loader = app.Services.GetService<IDefinitionLoader>();
-            loader.LoadDefinition(json, Deserializers.Json);
+            loader?.LoadDefinition(json, Deserializers.Json);
 
 
 

@@ -9,7 +9,12 @@
     },
     {
       "Id": "Bye",
-      "StepType": "WorkflowBlazor.WorkflowJobs.FirstJob.Steps.GoodbyeWorld, WorkflowBlazor"
+      "StepType": "WorkflowBlazor.WorkflowJobs.FirstJob.Steps.GoodbyeWorld, WorkflowBlazor",
+      "NextStepId": "Hello2"
+    },
+    {
+      "Id": "Hello2",
+      "StepType": "WorkflowBlazor.WorkflowJobs.FirstJob.Steps.HelloWorld, WorkflowBlazor"
 
     }
   ]
