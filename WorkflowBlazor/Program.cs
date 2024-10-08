@@ -21,16 +21,17 @@ namespace WorkflowBlazor
 
             builder.Services.AddWorkflow(options =>
             {
-                options.UseSqlite("Data Source=workflow.db",true);
+                options.UseSqlite("Data Source=workflow.db", true);
             });
 
-            builder.Services.AddTransient<HelloWorld>();
-            builder.Services.AddTransient<GoodbyeWorld>();
-
-            ServiceLocator.Instance = builder.Services!.BuildServiceProvider();
+            //ServiceLocator.Instance = builder.Services!.BuildServiceProvider();
 
 
             var app = builder.Build();
+
+            ServiceLocator.Instance = app.Services;
+
+            UseWorkflow(app);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -44,13 +45,30 @@ namespace WorkflowBlazor
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
-            var host = app.Services.GetService<IWorkflowHost>();
-            host.RegisterWorkflow<HelloWorldWorkflow>();
-            host.Start();
 
-            host.StartWorkflow("HelloWorld",1);
 
             app.Run();
         }
+
+        public static void UseWorkflow(WebApplication app)
+        {
+            var host = app.Services.GetService<IWorkflowHost>();
+
+            #region 工步注册
+            //c#代码注册
+            host?.RegisterWorkflow<HelloWorldWorkflow>();
+            //json注册
+            #endregion
+
+            host?.Start();
+            // 通过DI获取IHostApplicationLifetime实例
+            var applicationLifetime = app.Services.GetService(typeof(IHostApplicationLifetime)) as IHostApplicationLifetime;
+            applicationLifetime?.ApplicationStopping.Register(() =>
+            {
+                host?.Stop();
+            });
+        }
     }
+
+
 }
