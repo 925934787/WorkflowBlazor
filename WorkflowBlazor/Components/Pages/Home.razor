@@ -1,0 +1,41 @@
+﻿@page "/"
+@using WorkflowBlazor.WorkflowJobs
+
+<PageTitle>Home</PageTitle>
+<MudButton OnClick="GetWorkflows">获取所有工作流</MudButton>
+
+<MudPaper Class="d-flex flex-column flex-grow-1 gap-4" Elevation="3">
+    @foreach (var workflow in workflows)
+    {
+        <MudPaper Width="100%" Elevation="2">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.subtitle1">Id: @workflow.Id - Version: @workflow.Version.ToString()</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.KeyboardArrowRight" Color="Color.Default" OnClick="()=>StartWorkflow(workflow)"/>
+                    </CardHeaderActions>
+                </MudCardHeader>
+            </MudCard>
+        </MudPaper>
+    }
+
+</MudPaper>
+
+
+@code {
+    private List<WorkflowJobInfo> workflows = [];
+
+
+    private void GetWorkflows()
+    {
+        workflows = WorkflowCommon.GetWorkflowJobInfos();
+    }
+
+    private void StartWorkflow(WorkflowJobInfo workflow)
+    {
+        WorkflowCommon.StartJob(workflow);
+    }
+
+}
